@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ReactiveWeather.ViewModels;assembly=ReactiveWeather"
+             x:DataType="vm:LocationSearchViewModel"
+             x:Class="ReactiveWeather.MainPage">
+
+    <ScrollView>
+        <Grid RowDefinitions="Auto,*"
+              Margin="32,32">
+            <!-- Search Area -->
+            <Grid ColumnDefinitions="*,Auto" BackgroundColor="White">
+                <SearchBar x:Name="searchBar"
+                           BackgroundColor="White"
+                           Placeholder="Enter Postalcode or City"
+                           Text="{Binding SearchEntry}"
+                           SearchCommand="{Binding ExecuteSearch}"
+                           SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
+                <ActivityIndicator IsEnabled="{Binding IsBusy}"
+                                   IsRunning="{Binding IsBusy}"
+                                   IsVisible="{Binding IsBusy}"
+                                   BackgroundColor="White"
+                                   Grid.Column="1"/>
+            </Grid>
+            <!-- List of Locations -->
+            <CollectionView ItemsSource="{Binding Locations}"
+                            SelectedItem="{Binding SelectedLocation}"
+                            SelectionMode="Single"
+                            Grid.Row="1"/>
+        </Grid>
+    </ScrollView>
+
+</ContentPage>
+
